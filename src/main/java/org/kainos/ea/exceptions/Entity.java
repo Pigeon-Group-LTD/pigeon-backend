@@ -1,7 +1,8 @@
 package org.kainos.ea.exceptions;
 
 public enum Entity {
-    ROOM("Room");
+    ROOM("Room"),
+    BOOKING("Booking");
 
     private final String name;
 

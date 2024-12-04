@@ -5,10 +5,13 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
+import org.kainos.ea.controllers.BookingController;
 import org.kainos.ea.controllers.RoomController;
 import org.kainos.ea.controllers.TestController;
+import org.kainos.ea.daos.BookingDao;
 import org.kainos.ea.daos.RoomDao;
 import org.kainos.ea.daos.TestDao;
+import org.kainos.ea.services.BookingService;
 import org.kainos.ea.services.RoomService;
 import org.kainos.ea.services.TestService;
 
@@ -40,6 +43,9 @@ public class PigeonApplication extends Application<PigeonConfiguration> {
                 .register(new TestController(new TestService(new TestDao())));
         environment.jersey()
                 .register(new RoomController(new RoomService(new RoomDao())));
+        environment.jersey()
+                .register(new BookingController(
+                        new BookingService(new BookingDao())));
     }
 
 }
