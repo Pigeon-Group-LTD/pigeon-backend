@@ -6,18 +6,18 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
-    <artifactId>java-dropwizard-flyway-starter</artifactId>
+    <groupId>org.kainos.ea</groupId>
+    <artifactId>pigeon-backend</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Test</name>
+    <name>Pigeon</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <dropwizard.version>2.0.3</dropwizard.version>
-        <mainClass>org.example.TestApplication</mainClass>
+        <mainClass>org.kainos.ea.PigeonApplication</mainClass>
     </properties>
 
     <dependencyManagement>
@@ -45,7 +45,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.21</version>
+            <version>8.0.28</version>
         </dependency>
         <dependency>
             <groupId>com.smoketurner</groupId>

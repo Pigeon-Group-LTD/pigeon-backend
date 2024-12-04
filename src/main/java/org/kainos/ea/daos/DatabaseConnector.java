@@ -1,4 +1,4 @@
-package org.example.daos;
+package org.kainos.ea.daos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,6 @@ public final class DatabaseConnector {
     private static Connection conn;
     private DatabaseConnector() { }
     public static Connection getConnection() throws SQLException {
-
         if (conn != null && !conn.isClosed()) {
             return conn;
         }
@@ -31,8 +30,7 @@ public final class DatabaseConnector {
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
+            throw e;
         }
-
-        return null;
     }
 }

@@ -1,34 +1,34 @@
-package org.example;
+package org.kainos.ea;
 
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
-import org.example.controllers.TestController;
-import org.example.daos.TestDao;
-import org.example.services.TestService;
+import org.kainos.ea.controllers.TestController;
+import org.kainos.ea.daos.TestDao;
+import org.kainos.ea.services.TestService;
 
-public class TestApplication extends Application<TestConfiguration> {
+public class PigeonApplication extends Application<PigeonConfiguration> {
     public static void main(final String[] args) throws Exception {
-        new TestApplication().run(args);
+        new PigeonApplication().run(args);
     }
     @Override
     public String getName() {
         return "Test";
     }
     @Override
-    public void initialize(final Bootstrap<TestConfiguration> bootstrap) {
+    public void initialize(final Bootstrap<PigeonConfiguration> bootstrap) {
         bootstrap.addBundle(new SwaggerBundle<>() {
             @Override
             protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(
-                    final TestConfiguration configuration) {
+                    final PigeonConfiguration configuration) {
                 return configuration.getSwagger();
             }
         });
     }
     @Override
-    public void run(final TestConfiguration configuration,
+    public void run(final PigeonConfiguration configuration,
                     final Environment environment) {
         environment.jersey()
                 .register(new TestController(new TestService(new TestDao())));

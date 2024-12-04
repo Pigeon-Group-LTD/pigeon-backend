@@ -2,7 +2,7 @@
 logging:
   level: INFO
   loggers:
-    org.example: DEBUG
+    org.kainos.ea: DEBUG
 
 swagger:
-  resourcePackage: "org.example.controllers"
+  resourcePackage: "org.kainos.ea.controllers"
