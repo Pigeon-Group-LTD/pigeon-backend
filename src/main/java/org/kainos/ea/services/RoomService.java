@@ -3,6 +3,8 @@ package org.kainos.ea.services;
 import org.kainos.ea.daos.RoomDao;
 import org.kainos.ea.exceptions.Entity;
 import org.kainos.ea.exceptions.FailedToCreateException;
+import org.kainos.ea.exceptions.FailedToDeleteException;
+import org.kainos.ea.exceptions.FailedToUpdateException;
 import org.kainos.ea.exceptions.NotFoundException;
 import org.kainos.ea.models.Room;
 import org.kainos.ea.models.RoomRequest;
@@ -40,5 +42,35 @@ public class RoomService {
         }
 
         return roomId;
+    }
+
+    public void updateRoom(final int id, final RoomRequest roomRequest)
+            throws SQLException, FailedToUpdateException, NotFoundException {
+        Room roomToUpdate = dao.getRoom(id);
+
+        if (roomToUpdate == null) {
+            throw new NotFoundException(Entity.ROOM);
+        }
+
+        boolean updateSuccessful = dao.updateRoom(id, roomRequest);
+
+        if (!updateSuccessful) {
+            throw new FailedToUpdateException(Entity.ROOM);
+        }
+    }
+
+    public void deleteRoom(final int id)
+            throws SQLException, FailedToDeleteException, NotFoundException {
+        Room roomToDelete = dao.getRoom(id);
+
+        if (roomToDelete == null) {
+            throw new NotFoundException(Entity.ROOM);
+        }
+
+        boolean deleteSuccessful = dao.deleteRoom(id);
+
+        if (!deleteSuccessful) {
+            throw new FailedToDeleteException(Entity.ROOM);
+        }
     }
 }

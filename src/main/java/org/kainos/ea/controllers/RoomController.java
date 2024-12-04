@@ -2,12 +2,16 @@ package org.kainos.ea.controllers;
 
 import io.swagger.annotations.Api;
 import org.kainos.ea.exceptions.FailedToCreateException;
+import org.kainos.ea.exceptions.FailedToDeleteException;
+import org.kainos.ea.exceptions.FailedToUpdateException;
 import org.kainos.ea.exceptions.NotFoundException;
 import org.kainos.ea.models.RoomRequest;
 import org.kainos.ea.services.RoomService;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -56,7 +60,42 @@ public class RoomController {
                     .entity(roomService.createRoom(roomRequest))
                     .build();
         } catch (SQLException | FailedToCreateException e) {
-            return Response.serverError().build();
+            return Response.serverError().entity(e.getMessage()).build();
+        }
+    }
+
+    @PUT
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateRoom(
+            @PathParam("id") final int id,
+            final RoomRequest roomRequest
+    ) {
+        try {
+            roomService.updateRoom(id, roomRequest);
+            return Response.noContent().build();
+        } catch (SQLException | FailedToUpdateException e) {
+            return Response.serverError().entity(e.getMessage()).build();
+        } catch (NotFoundException e) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(e.getMessage()).build();
+        }
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteRoom(
+            @PathParam("id") final int id
+    ) {
+        try {
+            roomService.deleteRoom(id);
+            return Response.noContent().build();
+        } catch (SQLException | FailedToDeleteException e) {
+            return Response.serverError().entity(e.getMessage()).build();
+        } catch (NotFoundException e) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(e.getMessage()).build();
         }
     }
 }

@@ -82,4 +82,36 @@ public class RoomDao {
             return resultSet.getInt(1);
         }
     }
+
+    public boolean updateRoom(final int id, final RoomRequest roomRequest)
+            throws SQLException {
+        try (Connection connection = DatabaseConnector.getConnection()) {
+            String queryString =  "UPDATE Room "
+                    + "SET RoomName = ? "
+                    + "WHERE RoomId = ?;";
+
+            PreparedStatement statement = connection
+                    .prepareStatement(queryString);
+
+            statement.setString(1, roomRequest.getRoomName());
+            statement.setInt(2, id);
+
+            return statement.executeUpdate() == 1;
+        }
+    }
+
+    public boolean deleteRoom(final int id)
+            throws SQLException {
+        try (Connection connection = DatabaseConnector.getConnection()) {
+            String queryString =  "DELETE FROM Room "
+                    + "WHERE RoomId = ?;";
+
+            PreparedStatement statement = connection
+                    .prepareStatement(queryString);
+
+            statement.setInt(1, id);
+
+            return statement.executeUpdate() == 1;
+        }
+    }
 }
